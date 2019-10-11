@@ -6,11 +6,8 @@
 //  Copyright © 2019 thechoygroup. All rights reserved.
 //
 
-
-
 import Foundation
 import GameKit
-
 
 enum BoutTimeEventsGeneratorError: Error {
     case invalidResource
@@ -50,15 +47,14 @@ protocol BoutTimeRandomEventsGenerator {
 }
 
 struct RandomEventsGenerator: BoutTimeRandomEventsGenerator {
-    let gameEvents: [BoutTimeEvent]
+    let gameEvents: [BoutTimeEvent]  // Contains the whole set of events for the game
     let eventsPerRound = 4
     
     init(gameEvents: [BoutTimeEvent]) {
         self.gameEvents = gameEvents
     }
     
-    /// Instance method that gets one set of 4 random events
-    
+    /// Instance method to get a set of 4 random events
     func generateRandomEvents() -> [BoutTimeEvent] {
         var gameRoundEvents = [BoutTimeEvent]()
         var indexOfSelectedEvent = 0
@@ -66,19 +62,11 @@ struct RandomEventsGenerator: BoutTimeRandomEventsGenerator {
         
         for _ in 1...eventsPerRound {
             indexOfSelectedEvent = GKRandomSource.sharedRandom().nextInt(upperBound: gameEvents.count)
-            
-            
-            
-            // Condition that prevents getting same event in a round
-        
+            // To prevent getting same event in a round
             while (presentedEventsIndices.contains(indexOfSelectedEvent)) {
                 indexOfSelectedEvent = GKRandomSource.sharedRandom().nextInt(upperBound: gameEvents.count)
             }
-            
-            
-            
-            // This stores events already generated
-        
+            // Store the indices of events already generated
             presentedEventsIndices.append(indexOfSelectedEvent)
             gameRoundEvents.append(gameEvents[indexOfSelectedEvent])
         }
@@ -86,9 +74,7 @@ struct RandomEventsGenerator: BoutTimeRandomEventsGenerator {
         return gameRoundEvents
     }
     
-    
-    /// Instance method to view all event details of game
-    
+    /// Instance method to view all game events details
     func printAllGameEvents() {
         var i = 1
         for event in gameEvents {

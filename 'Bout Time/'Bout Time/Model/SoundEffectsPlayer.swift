@@ -6,11 +6,7 @@
 //  Copyright © 2019 thechoygroup. All rights reserved.
 //
 
-
-
-
 import AudioToolbox
-
 
 enum GameSound: String {
     case success = "CorrectDing"
@@ -28,10 +24,8 @@ enum SoundError: Error {
 
 struct SoundEffectsPlayer {
     var gameSound: SystemSoundID = 0
-
     
-    
-    /// Instance method that plays sounds
+    /// Instance method to play sound
     mutating func playSoundEffectOf(_ state: GameSound) {
         do {
             switch state {
@@ -48,9 +42,7 @@ struct SoundEffectsPlayer {
         }
     }
     
-    
-    
-    /// Helper method that loads game sounds
+    /// Helper method to load a game sound
     mutating func load(sound: String, ofType type: SoundType = .wav) throws {
         guard let path = Bundle.main.path(forResource: sound, ofType: type.rawValue) else {
             throw SoundError.invalidResource
@@ -59,11 +51,8 @@ struct SoundEffectsPlayer {
         AudioServicesCreateSystemSoundID(soundUrl as CFURL, &gameSound)
     }
     
-    
-    
-    /// Helper method that plays a game sound
+    /// Helper method to play a game sound
     func play(_ gameSound: SystemSoundID) {
         AudioServicesPlaySystemSound(gameSound)
     }
-    
 }

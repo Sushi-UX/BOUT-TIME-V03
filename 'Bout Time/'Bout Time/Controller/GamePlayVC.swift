@@ -10,7 +10,7 @@ import UIKit
 import SafariServices
 
 class GamePlayVC: UIViewController {
-
+    @IBAction func UnwindToGamePlayVC(_ unwindSegue: UIStoryboardSegue) {}
 //MARK: - IB Outlets
     @IBOutlet weak var event1Label: UILabel!
     @IBOutlet weak var event2Label: UILabel!
@@ -29,9 +29,7 @@ class GamePlayVC: UIViewController {
     @IBOutlet weak var successImage: UIImageView!
     @IBOutlet weak var failImage: UIImageView!
     
-    
-    //  Properties stored
-    
+    //MARK: - Stored Properties
     var game: BoutTimeGame
     var gameTimer: Timer!
     var timerRunning = false
@@ -48,10 +46,11 @@ class GamePlayVC: UIViewController {
             fatalError("\(error.localizedDescription)")
         }
         super.init(coder: aDecoder)
+      
+
     }
     
-    //  Override methods
-    
+    //MARK: - Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -63,9 +62,7 @@ class GamePlayVC: UIViewController {
         let successImageTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(resultImageTapped))
         let failImageTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(resultImageTapped))
         
-        
-        // Gesture Recognizers
-        
+        // Assign Gesture Recognizers
         event1Label.addGestureRecognizer(event1LabelTapRecognizer)
         event2Label.addGestureRecognizer(event2LabelTapRecognizer)
         event3Label.addGestureRecognizer(event3LabelTapRecognizer)
@@ -82,24 +79,19 @@ class GamePlayVC: UIViewController {
         startGame()
     }
     
-    
-    //  Get status bar with white content
-    
+    // To achieve a status bar with white content
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
     
-    // Detects shake gesture
-    
+    // To detect shake gesture
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
-        if event?.subtype == motion {
+        if motion == .motionShake {
             endGameRound()
         }
     }
     
-    
-    // This passes data to another view controller
-    
+    // To pass data to another view controller
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "gameScoresVCSegue" {
             if let gameScoresVC = segue.destination as? GameScoresVC {
@@ -107,9 +99,10 @@ class GamePlayVC: UIViewController {
             }
         }
 }
-
-// IB Actions connected
     
+    
+
+//MARK:- IB Actions
     @IBAction func fullDownButtonTapped(_ sender: Any) {
         arrangeEvents(.fullDown)
     }
@@ -134,9 +127,10 @@ class GamePlayVC: UIViewController {
         arrangeEvents(.fullUp)
     }
     
+
+
     
-    // Added Methods
-    
+    //MARK: - Methods
     func startGame() {
         game.playerScore = 0
         game.roundsCompleted = 0
@@ -177,9 +171,7 @@ class GamePlayVC: UIViewController {
         event4Label.text = userSetEvents[3].description
     }
     
-    
-    /// Ordered event labels as per players input
-    
+    /// Arranges event labels as per user input
     func arrangeEvents(_ controlButton: GameControls) {
         switch controlButton {
         case .fullDown:
@@ -198,8 +190,7 @@ class GamePlayVC: UIViewController {
         presentEvents()
     }
     
-    /// Disables labels per players interactivity
-    
+    /// Disable labels user interactivity
     func disableEventLabelsUserInteractivity() {
         event1Label.isUserInteractionEnabled = false
         event2Label.isUserInteractionEnabled = false
@@ -207,9 +198,7 @@ class GamePlayVC: UIViewController {
         event4Label.isUserInteractionEnabled = false
     }
     
-    
-    /// Enable labels per players interactivity
-    
+    /// Enable labels user interactivity
     func enableEventLabelsUserInteractivity() {
         event1Label.isUserInteractionEnabled = true
         event2Label.isUserInteractionEnabled = true
@@ -217,25 +206,19 @@ class GamePlayVC: UIViewController {
         event4Label.isUserInteractionEnabled = true
     }
     
-    
-    /// Disables Result Images per players Interactivity
-    
+    /// Disable Result Images User Interactivity
     func disableResultImagesUserInteractivity() {
         successImage.isUserInteractionEnabled = false
         failImage.isUserInteractionEnabled = false
     }
     
-    
-    /// Enable Result Images per players Interactivity
-    
+    /// Enable Result Images User Interactivity
     func enableResultImagesUserInteractivity(){
         successImage.isUserInteractionEnabled = true
         failImage.isUserInteractionEnabled = true
     }
     
-    
-    /// Disables Control buttons per players Interactivity
-    
+    /// Disable Control buttons User Interactivity
     func disableControlButtonsUserInteractivity() {
         fullUpButton.isUserInteractionEnabled = false
         fullDownButton.isUserInteractionEnabled = false
@@ -245,9 +228,7 @@ class GamePlayVC: UIViewController {
         halfDown2Button.isUserInteractionEnabled = false
     }
     
-    
-    /// Enables Control Buttons per players Interactivity
-    
+    /// Enable Control Buttons User Interactivity
     func enableControlButtonsUserInteractivity() {
         fullUpButton.isUserInteractionEnabled = true
         fullDownButton.isUserInteractionEnabled = true
@@ -257,8 +238,7 @@ class GamePlayVC: UIViewController {
         halfDown2Button.isUserInteractionEnabled = true
     }
     
-    
-    /// Handler of Timer Event
+    /// Timer Event Handler
     @objc func timeOutHandler() {
         secondsLeft -= 1
         timerLabel.text = "\(secondsLeft)"
@@ -267,9 +247,7 @@ class GamePlayVC: UIViewController {
         }
     }
     
-    
-    /// Current game round ends
-    
+    /// End current game round
     func endGameRound() {
         gameTimer.invalidate()
         let result = game.evaluateOrderOf(events: userSetEvents)
@@ -291,16 +269,13 @@ class GamePlayVC: UIViewController {
     }
     
     
-    /// Resets Timer
-    
+    /// Reset Timer
     func resetTimer() {
         secondsLeft = 60
         timerRunning = false
     }
     
-    
-    /// Starts Timer
-    
+    /// Start Timer
     func startTimer() {
         timerLabel.text = "\(secondsLeft)"
         if !timerRunning {
@@ -309,9 +284,7 @@ class GamePlayVC: UIViewController {
         }
     }
     
-    
-    // Sets the Control Button Images
-    
+    // Set Control Button Images
     func setControlButtonImages() {
         fullDownButton.setImage(UIImage(named: "down_full")?.withRenderingMode(.automatic), for: .normal)
         halfUp1Button.setImage(UIImage(named: "up_half")?.withRenderingMode(.automatic), for: .normal)
@@ -348,14 +321,13 @@ class GamePlayVC: UIViewController {
         checkAndProceedToNextRound()
     }
     
-    
-    /// Shows the WebPage with SFSafariViewController
-    
+    /// Show WebPage with SFSafariViewController
     func showWebsite(url: String) {
         if let webURL = NSURL(string: url) {
             let safariVC = SFSafariViewController(url: webURL as URL)
             present(safariVC, animated: true, completion: nil)
         }
     }
+    
 }
 

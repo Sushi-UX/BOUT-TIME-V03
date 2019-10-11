@@ -282,7 +282,7 @@
                                         <state key="normal" image="play_again"/>
                                         <connections>
                                             <action selector="playAgainButtonTapped:" destination="slT-0L-tjJ" eventType="touchUpInside" id="dX3-2i-nAJ"/>
-                                            <segue destination="BYZ-38-t0r" kind="show" identifier="gamePlayVCSegue" id="IyV-Wq-kP7"/>
+                                            <segue destination="wpy-2a-ub9" kind="unwind" unwindAction="unwindToGamePlayVC:" id="q2B-rv-9Kk"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -314,8 +314,9 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kHg-qK-Ued" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="wpy-2a-ub9" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1134" y="134"/>
+            <point key="canvasLocation" x="1446" y="27"/>
         </scene>
     </scenes>
     <resources>

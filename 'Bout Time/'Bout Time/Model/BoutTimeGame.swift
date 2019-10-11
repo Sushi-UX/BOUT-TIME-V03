@@ -6,8 +6,6 @@
 //  Copyright © 2019 thechoygroup. All rights reserved.
 //
 
-
-
 enum GameControls {
     case fullUp
     case halfUp1
@@ -16,7 +14,6 @@ enum GameControls {
     case halfDown2
     case fullDown
 }
-
 
 protocol BoutTime {
     var playerScore: Int { get set }
@@ -27,7 +24,6 @@ protocol BoutTime {
     
     func evaluateOrderOf(events: [BoutTimeEvent]) -> Bool
 }
-
 
 struct BoutTimeGame: BoutTime {
     var playerScore = 0
@@ -40,11 +36,8 @@ struct BoutTimeGame: BoutTime {
         self.eventsGenerator = eventsGenerator
         self.roundsPerGame = rounds
     }
- 
     
-    
-    /// Instance method to evaluate if game events ordered correctly by the player
-    
+    /// Instance method to evaluate the correctness of game events ordered by the user
     func evaluateOrderOf(events: [BoutTimeEvent]) -> Bool {
         var correctOrderOfYears = [Int]()    // Collection to hold the correct order of events by their year of occurrence
         var userSetOrderOfYears = [Int]()  // Collection to hold the user submitted order of events by their year of occurrence

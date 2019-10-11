@@ -6,16 +6,11 @@
 //  Copyright © 2019 thechoygroup. All rights reserved.
 //
 
-
-
-
 import UIKit
 
 class GameScoresVC: UIViewController {
 
-    
-// Connected IB Outlets
-    
+//MARK: - IB Outlets
     @IBOutlet weak var scoresLabel: UILabel!
     
     var game: BoutTimeGame?
@@ -27,18 +22,10 @@ class GameScoresVC: UIViewController {
         }
     }
     
-    
-    // Helps achieve a status bar with white content
-    
+    // To achieve a status bar with white content
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
 }
 
-    
-// Connected IB Functions
-    
-    @IBAction func playAgainButtonTapped(_ sender: Any) {
-        performSegue(withIdentifier: "gamePlayVCSegue", sender: self)
-    }
 
 }
